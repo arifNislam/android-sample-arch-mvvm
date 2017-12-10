@@ -1,4 +1,4 @@
-package com.example.marger;
+package com.arifnislam.droidplate;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -20,7 +20,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.example.marger", appContext.getPackageName());
+    
+        assertEquals("com.example.droidplate.test", appContext.getPackageName());
     }
 }

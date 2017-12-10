@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="hz_space">16dp</dimen>
+    <dimen name="vt_space">8dp</dimen>
+    <dimen name="hz_space_inclusive">8dp</dimen>
+    <dimen name="vt_space_inclusive">4dp</dimen>
+    <dimen name="large_space">24dp</dimen>
+    <dimen name="xtra_large_space">32dp</dimen>
+
+    <dimen name="font_size_small">14sp</dimen>
+    <dimen name="font_size_medium">16sp</dimen>
+    <dimen name="font_size_large">20sp</dimen>
+</resources>

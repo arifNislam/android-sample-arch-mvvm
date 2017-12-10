@@ -1,4 +1,4 @@
-package com.example.marger;
+package com.arifnislam.starter;
 
 import org.junit.Test;
 
