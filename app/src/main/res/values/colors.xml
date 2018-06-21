@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#212121</color>
-    <color name="primaryDark">#000000</color>
-    <color name="statusBar">#61000000</color>
+    <color name="primary">#353F40</color>
+    <color name="primaryDark">#283132</color>
     <color name="accent">#00838F</color>
     <color name="textOnColorPrimary">#ffffff</color>
     <color name="windowBackground">#e8e8e8</color>
     <color name="alternateBackground">#ffffff</color>
-    <color name="navigationBar">#000000</color>
     <color name="primaryText">#dd000000</color>
     <color name="secondaryText">#89000000</color>
     <color name="hintText">#61000000</color>

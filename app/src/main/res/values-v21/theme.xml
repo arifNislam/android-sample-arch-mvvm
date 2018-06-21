@@ -2,7 +2,5 @@
 <resources>
 
     <style name="AppMaterialTheme" parent="BaseTheme">
-        <item name="android:navigationBarColor">@color/navigationBar</item>
-        <item name="android:statusBarColor">@color/statusBar</item>
     </style>
 </resources>
