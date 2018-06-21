@@ -1,2 +1,1 @@
-# android-starter
-A skeleton of a new android project
+A collection of android samples
