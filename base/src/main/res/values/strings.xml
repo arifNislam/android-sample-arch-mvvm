@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Android Samples</string>
+
+    <string name="notification_default_channel_id">default</string>
+    <string name="notification_default_channel_name">Default</string>
+</resources>
