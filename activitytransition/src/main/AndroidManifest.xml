@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.binjar.sample.activitytransition">
+
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+    <application>
+        <activity android:name=".TransitionActivity"/>
+    </application>
+</manifest>

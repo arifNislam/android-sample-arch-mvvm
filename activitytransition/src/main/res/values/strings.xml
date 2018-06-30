@@ -1,0 +1,4 @@
+<resources>
+    <string name="title_activity_transition">Activity Transition Recognition</string>
+    <string name="activity_updates_enabled">Activity transition updates enabled</string>
+</resources>
