@@ -24,19 +24,23 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     api 'com.android.support:appcompat-v7:27.1.1'
     application project(':app')
     feature project(":activitytransition")
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     api "com.android.support:design:$rootProject.supportLibraryVersion"
     api "com.android.support:support-v13:$rootProject.supportLibraryVersion"
-    api "com.android.support.constraint:constraint-layout:1.1.2"
+    api 'com.android.support.constraint:constraint-layout:1.1.2'
     api "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    api 'com.google.android.gms:play-services-location:15.0.1'
 }
 repositories {
     mavenCentral()

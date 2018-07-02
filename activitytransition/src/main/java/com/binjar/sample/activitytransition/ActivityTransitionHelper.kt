@@ -2,15 +2,14 @@ package com.binjar.sample.activitytransition
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.location.ActivityRecognition
 import com.google.android.gms.location.ActivityTransition
 import com.google.android.gms.location.ActivityTransitionRequest
 import com.google.android.gms.location.DetectedActivity
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import java.util.ArrayList
+import java.util.*
 
 
 /**
@@ -21,6 +20,7 @@ import java.util.ArrayList
 class ActivityTransitionHelper(private val activity: AppCompatActivity) {
     companion object {
         private const val REQ_CODE = 7
+        const val KEY_REQUESTED = "activity_update_request"
     }
 
     private val transitionRequest by lazy {
@@ -54,15 +54,22 @@ class ActivityTransitionHelper(private val activity: AppCompatActivity) {
         task.addOnCompleteListener(listener)
     }
 
-    fun removeUpdates(successListener: OnSuccessListener<Void>, failureListener: OnFailureListener) {
+    fun removeUpdates(listener: OnCompleteListener<Void>) {
         val task = ActivityRecognition.getClient(activity).removeActivityTransitionUpdates(getPendingIntent())
-        task.addOnSuccessListener(successListener)
-        task.addOnFailureListener(failureListener)
+        task.addOnCompleteListener(listener)
     }
 
     private fun getPendingIntent(): PendingIntent {
         val intent = Intent(activity, TransitionUpdatesReceiver::class.java)
         intent.action = TransitionUpdatesReceiver.ACTION_ACTIVITY_RECOGNIZED
         return PendingIntent.getBroadcast(activity, REQ_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
+    fun requestingTransitionUpdates(): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(activity.applicationContext).getBoolean(KEY_REQUESTED, false)
+    }
+
+    fun setTransitionRequestState(requesting: Boolean) {
+        PreferenceManager.getDefaultSharedPreferences(activity.applicationContext).edit().putBoolean(KEY_REQUESTED, requesting).apply()
     }
 }
