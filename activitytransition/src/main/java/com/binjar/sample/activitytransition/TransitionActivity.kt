@@ -37,7 +37,7 @@ class TransitionActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent?.action
             if (ACTION_TRANSITION_UPDATE.equals(action) && intent?.hasExtra(KEY_ACTIVITY_TYPE) == true) {
-                updateTransitionState(intent.getIntExtra(KEY_ACTIVITY_TYPE, DetectedActivity.UNKNOWN))
+                setActivityType(intent.getIntExtra(KEY_ACTIVITY_TYPE, DetectedActivity.UNKNOWN))
             }
         }
     }
@@ -50,8 +50,7 @@ class TransitionActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.title_activity_transition)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        recognitionBtn.isChecked = transitionHelper.requestingTransitionUpdates()
-
+        recognitionBtn.isChecked = PrefUtils(this).requestingTransitionUpdates()
         recognitionBtn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 requestActivityUpdates()
@@ -63,6 +62,7 @@ class TransitionActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        setActivityType(PrefUtils(this).getLastActivityType())
         registerReceiver(activityTransitionReceiver, IntentFilter(ACTION_TRANSITION_UPDATE))
     }
 
@@ -79,7 +79,7 @@ class TransitionActivity : AppCompatActivity() {
     private fun requestActivityUpdates() {
         transitionHelper.requestForUpdates(OnCompleteListener {
             if (it.isSuccessful) {
-                transitionHelper.setTransitionRequestState(true)
+                PrefUtils(this).saveTransitionRequestState(true)
                 Snackbar.make(rootLayout, getString(R.string.activity_updates_enabled), Snackbar.LENGTH_SHORT).show()
             }
         })
@@ -88,19 +88,21 @@ class TransitionActivity : AppCompatActivity() {
     private fun removeActivityUpdates() {
         transitionHelper.removeUpdates(OnCompleteListener {
             if (it.isSuccessful) {
-                transitionHelper.setTransitionRequestState(false)
+                val prefs = PrefUtils(this@TransitionActivity)
+                prefs.saveTransitionRequestState(false)
+                prefs.deleteLastActivityType()
                 Snackbar.make(rootLayout, getString(R.string.activity_updates_disabled), Snackbar.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun updateTransitionState(activityType: Int) {
+    private fun setActivityType(activityType: Int) {
         currentActivityText.text = when(activityType) {
-            DetectedActivity.STILL -> "User is still"
-            DetectedActivity.WALKING -> "User is walking"
-            DetectedActivity.RUNNING -> "User is running"
-            DetectedActivity.ON_BICYCLE -> "User riding a bicycle"
-            DetectedActivity.IN_VEHICLE -> "User is in vehicle"
+            DetectedActivity.STILL -> "Current activity: still"
+            DetectedActivity.WALKING -> "Current activity: walking"
+            DetectedActivity.RUNNING -> "Current activity: running"
+            DetectedActivity.ON_BICYCLE -> "Current activity: on bicycle"
+            DetectedActivity.IN_VEHICLE -> "Current activity: in vehicle"
             else -> "Unknown activity"
         }
 

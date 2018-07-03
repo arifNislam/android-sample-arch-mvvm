@@ -28,16 +28,18 @@ class TransitionUpdatesReceiver : BroadcastReceiver() {
                     val event = this.transitionEvents[0]
                     val pusher = Pusher(appContext)
                     val text = when (event.activityType) {
-                        DetectedActivity.STILL -> "User is still"
-                        DetectedActivity.WALKING -> "User is walking"
-                        DetectedActivity.RUNNING -> "User is running"
-                        DetectedActivity.ON_BICYCLE -> "User riding a bicycle"
-                        DetectedActivity.IN_VEHICLE -> "User is in vehicle"
+                        DetectedActivity.STILL -> "Current activity: still"
+                        DetectedActivity.WALKING -> "Current activity: walking"
+                        DetectedActivity.RUNNING -> "Current activity: running"
+                        DetectedActivity.ON_BICYCLE -> "Current activity: on bicycle"
+                        DetectedActivity.IN_VEHICLE -> "Current activity: in vehicle"
                         else -> "Unknown activity"
                     }
 
                     val notification = pusher.buildNotification(appContext.getString(R.string.notification_default_channel_id), "User's activity changed", text)
                     pusher.push(ACTIVITY_NOTIFICATION_ID, notification)
+
+                    PrefUtils(context.applicationContext).saveLastActivityType(event.activityType)
 
                     val broadcastIntent = Intent(TransitionActivity.ACTION_TRANSITION_UPDATE)
                     broadcastIntent.putExtra(TransitionActivity.KEY_ACTIVITY_TYPE, event.activityType)

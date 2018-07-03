@@ -27,6 +27,7 @@
             android:id="@+id/currentActivityIcon"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:layout_marginEnd="@dimen/vt_space"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/currentActivityText"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -38,11 +39,12 @@
             android:id="@+id/currentActivityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Current activity: Running"
+            android:layout_marginStart="@dimen/vt_space"
             app:layout_constraintBottom_toBottomOf="@id/currentActivityIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/currentActivityIcon"
-            app:layout_constraintTop_toTopOf="@id/currentActivityIcon"/>
+            app:layout_constraintTop_toTopOf="@id/currentActivityIcon"
+            tools:text="Current activity: Running"/>
 
     </android.support.constraint.ConstraintLayout>
 
