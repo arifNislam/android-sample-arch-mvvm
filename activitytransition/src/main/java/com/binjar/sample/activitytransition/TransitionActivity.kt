@@ -92,6 +92,7 @@ class TransitionActivity : AppCompatActivity() {
                 prefs.saveTransitionRequestState(false)
                 prefs.deleteLastActivityType()
                 Snackbar.make(rootLayout, getString(R.string.activity_updates_disabled), Snackbar.LENGTH_SHORT).show()
+                setActivityType(DetectedActivity.UNKNOWN)
             }
         })
     }
