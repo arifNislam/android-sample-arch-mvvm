@@ -1,5 +1,7 @@
 package com.binjar.sample.app
 
-class MainActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
 
 }
