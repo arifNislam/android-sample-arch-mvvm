@@ -1,10 +1,13 @@
-package com.binjar.sample.app
+package com.binjar.sample.app.movies
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.binjar.sample.app.core.ItemClickListener
+import com.binjar.sample.app.R
+import com.binjar.sample.data.repositories.movie.model.Movie
 
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
@@ -50,12 +53,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
 
     class ItemViewHolder(itemView: View) : MovieHolder(itemView) {
 
-        val itemLayout = itemView.findViewById<View>(R.id.itemLayout)
+        val itemLayout: View = itemView.findViewById<View>(R.id.itemLayout)
         private val titleView = itemView.findViewById<AppCompatTextView>(R.id.titleView)
 
         override fun bind(item: Movie) {
             titleView.text = item.title
         }
-
     }
 }

@@ -23,7 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MainActivityTest {
-    @Rule public ActivityTestRule<MainActivity> loginActivityRule = new ActivityTestRule<>(MainActivity.class);
+    @Rule public ActivityTestRule<MovieListActivity> loginActivityRule = new ActivityTestRule<>(MovieListActivity.class);
     
     @Test public void switchActivity() {
         onView(withId(R.id.button))

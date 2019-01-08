@@ -1,0 +1,5 @@
+<resources>
+    <string name="msg_no_connection">Please check your internet connection</string>
+    <string name="msg_unknown_exception">Unable to complete request</string>
+    <string name="msg_failed_try_again">Failed! Please try again later.</string>
+</resources>

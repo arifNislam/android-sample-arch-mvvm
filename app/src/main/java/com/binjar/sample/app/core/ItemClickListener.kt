@@ -1,4 +1,4 @@
-package com.binjar.sample.app
+package com.binjar.sample.app.core
 
 
 interface ItemClickListener<Item> {
