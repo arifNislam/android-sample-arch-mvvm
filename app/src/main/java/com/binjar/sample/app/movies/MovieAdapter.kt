@@ -1,63 +1,80 @@
 package com.binjar.sample.app.movies
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.binjar.sample.app.core.ItemClickListener
+import com.binjar.sample.app.NetworkStateItemViewHolder
 import com.binjar.sample.app.R
+import com.binjar.sample.data.NetworkState
 import com.binjar.sample.data.repositories.movie.model.Movie
 
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieHolder>() {
+class MovieAdapter(val retryCallback: () -> Unit, val itemCallback: (Int, Movie) -> Unit) : PagedListAdapter<Movie, RecyclerView.ViewHolder>(COMPARATOR) {
 
     companion object {
-        const val TYPE_HEADER = 11
-        const val TYPE_ITEM = 22
-        const val TYPE_LOADER = 33
+        val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id && oldItem.title == newItem.title
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem == newItem
+        }
     }
 
-    private val dataset = ArrayList<Movie>()
+    private var networkState: NetworkState? = null
 
-    var itemClickListener: ItemClickListener<Movie>? = null
 
-    fun addItems(movies: ArrayList<Movie>) {
-        dataset.addAll(movies)
-        notifyDataSetChanged()
+    private val dataset = ArrayList<Any>()
+
+    override fun getItemCount(): Int {
+        return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
-
-    override fun getItemCount(): Int = dataset.size
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        return if (hasExtraRow() && position == itemCount - 1) {
+            R.layout.item_network_state
+        } else {
+            R.layout.item_movie
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-
-        return ItemViewHolder(itemView).apply {
-            itemLayout.setOnClickListener {
-                itemClickListener?.onItemClick(adapterPosition, dataset[adapterPosition])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            R.layout.item_network_state -> NetworkStateItemViewHolder.create(parent) {
+                retryCallback()
             }
+            R.layout.item_movie -> MovieItemViewHolder.create(parent) { adapterPosition: Int ->
+                itemCallback(adapterPosition, dataset[adapterPosition] as Movie)
+            }
+            else -> throw IllegalArgumentException("unknown view type $viewType")
         }
     }
 
-    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        holder.bind(dataset[position])
-    }
-
-    abstract class MovieHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        abstract fun bind(item: Movie)
-    }
-
-    class ItemViewHolder(itemView: View) : MovieHolder(itemView) {
-
-        val itemLayout: View = itemView.findViewById<View>(R.id.itemLayout)
-        private val titleView = itemView.findViewById<AppCompatTextView>(R.id.titleView)
-
-        override fun bind(item: Movie) {
-            titleView.text = item.title
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            R.layout.item_movie -> getItem(position)?.let { movie ->
+                (holder as MovieItemViewHolder).bind(movie)
+            }
+            R.layout.item_network_state -> (holder as NetworkStateItemViewHolder).bind(networkState)
         }
     }
+
+    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
+
+    fun setNetworkState(newState: NetworkState) {
+        val previousState = this.networkState
+        val hadExtraRow = hasExtraRow()
+        this.networkState = newState
+        val hasExtraRow = hasExtraRow()
+
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) {
+                notifyItemRemoved(super.getItemCount())
+            } else {
+                notifyItemInserted(super.getItemCount())
+            }
+        } else if (hasExtraRow && previousState != newState) {
+            notifyItemChanged(itemCount - 1)
+        }
+    }
+
 }

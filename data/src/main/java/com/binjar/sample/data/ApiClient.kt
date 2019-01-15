@@ -47,6 +47,6 @@ object ApiClient {
             okHttpBuilder.addInterceptor(loggingInterceptor)
         }
 
-        return okHttpBuilder.cache(Cache(context.cacheDir, cacheSize)).build()
+        return okHttpBuilder/*.cache(Cache(context.cacheDir, cacheSize))*/.build()  // todo enable caching later
     }
 }

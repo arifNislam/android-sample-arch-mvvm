@@ -3,20 +3,16 @@ package com.binjar.sample.data.repositories.movie
 import android.app.Application
 import com.binjar.sample.data.ApiClient
 import com.binjar.sample.data.onResponse
-import com.binjar.sample.data.repositories.movie.model.Movie
+import com.binjar.sample.data.repositories.movie.model.MovieResponse
 import io.reactivex.Flowable
 
 
-class MovieApi private constructor() : MovieDataSource {
+class MovieApi private constructor() {
 
     private lateinit var service: MovieService
 
-    override fun discoverMovies(until: String): Flowable<ArrayList<Movie>> {
-        return service.discover(until)
-                .onResponse()
-                .map { response ->
-                    if (response.movies.isNotEmpty()) response.movies else ArrayList()
-                }
+    fun discoverMovies(queryUntil: String, page: Int): Flowable<MovieResponse> {
+        return service.discover(queryUntil, page).onResponse()
     }
 
     companion object {

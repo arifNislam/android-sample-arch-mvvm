@@ -2,34 +2,36 @@ package com.binjar.sample.app.movies
 
 import androidx.annotation.NonNull
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.binjar.sample.app.core.AppViewModel
-import com.binjar.sample.data.repositories.movie.MovieDataSource
-import com.binjar.sample.data.repositories.movie.model.Movie
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.binjar.sample.data.repositories.movie.MovieRepository
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
-class MovieViewModel private constructor(private val dataSource: MovieDataSource) : AppViewModel() {
+class MovieViewModel private constructor(private val repository: MovieRepository) : AppViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
-    var discoveredMovies = MutableLiveData<List<Movie>>()
+    private val queryUntil = MutableLiveData<String>()
+
+    private val movieResult = Transformations.map(queryUntil) { query ->
+        repository.discoverMovies(query, compositeDisposable)
+    }
+
+    var discoveredMovies = Transformations.switchMap(movieResult) { it.pagedList }
+    var networkState  = Transformations.switchMap(movieResult) {it.networkState}
 
     override fun refresh() {
         compositeDisposable.clear()
     }
 
-    fun discover() {
-        val disposable = dataSource.discoverMovies("")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { loader.value = true }
-                .doOnTerminate { loader.value = false }
-                .subscribe({ movies -> discoveredMovies.setValue(movies) },
-                        { throwable -> snackMessage.setValue(throwable.message) })
-        compositeDisposable.add(disposable)
+    fun discover(date: String): Boolean {
+        if (date == queryUntil.value) {
+            return false
+        }
+        queryUntil.value = date
+        return true
     }
 
     override fun onCleared() {
@@ -37,7 +39,7 @@ class MovieViewModel private constructor(private val dataSource: MovieDataSource
         super.onCleared()
     }
 
-    class Factory(internal var dataSource: MovieDataSource) : ViewModelProvider.NewInstanceFactory() {
+    class Factory(private var dataSource: MovieRepository) : ViewModelProvider.NewInstanceFactory() {
 
         @NonNull
         override fun <T : ViewModel> create(@NonNull modelClass: Class<T>): T {
