@@ -10,13 +10,16 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -28,4 +31,16 @@
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+
+
+    <br.com.mauker.materialsearchview.MaterialSearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        app:elevation="10dp"
+        app:searchSuggestionBackground="@color/app_color_background"
+        app:listTextColor="@color/app_color_on_background"
+        app:suggestionIcon="@drawable/ic_history"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

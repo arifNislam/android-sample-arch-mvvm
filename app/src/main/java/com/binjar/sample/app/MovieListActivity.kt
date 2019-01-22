@@ -1,10 +1,16 @@
 package com.binjar.sample.app
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.mauker.materialsearchview.MaterialSearchView
 import com.binjar.sample.app.core.BaseActivity
 import com.binjar.sample.app.movies.MovieAdapter
 import com.binjar.sample.app.movies.MovieViewModel
@@ -52,6 +58,17 @@ class MovieListActivity : BaseActivity() {
         })
 
         viewModel.discover(dateFormat.format(Date()))
+
+        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                title = query
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
     }
 
     private fun initAdapter() {
@@ -60,10 +77,44 @@ class MovieListActivity : BaseActivity() {
 
         movieAdapter = MovieAdapter({
             viewModel.refresh()
-        }, { position: Int, movie: Movie ->
+        }, { _: Int, movie: Movie ->
             showSnackMessage(container, movie.title)
         })
         movieRecyclerView.adapter = movieAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.actionbar_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == Activity.RESULT_OK) {
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (results?.isNotEmpty() == true) {
+                searchView.setQuery(results[0], true)
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_search) {
+            if (!searchView.isOpen) {
+                searchView.openSearch()
+            }
+            return true
+        } else {
+            return super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (searchView.isOpen) {
+            searchView.closeSearch()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
 

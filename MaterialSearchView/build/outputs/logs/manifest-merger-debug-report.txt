@@ -1,0 +1,43 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+	package
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:2:11-53
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:1-23:12
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:4:5-7:11
+	android:supportsRtl
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:6:9-35
+	android:allowBackup
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml:5:9-35
+uses-sdk
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		ADDED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioWorkspace\android-samples\MaterialSearchView\src\main\AndroidManifest.xml

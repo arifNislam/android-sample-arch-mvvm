@@ -1,8 +1,7 @@
-package com.binjar.sample.data.repositories
+package com.binjar.sample.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
-import com.binjar.sample.data.NetworkState
 
 
 /**

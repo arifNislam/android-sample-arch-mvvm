@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/app_color_primary</item>
+        <item name="android:textColorPrimary">@color/app_color_primary</item>
+        <item name="colorPrimaryDark">@color/app_color_primary_dark</item>
+        <item name="colorAccent">@color/app_color_secondary</item>
+    </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/app_color_on_primary</item>
+    </style>
+    <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.Light"/>
 </resources>

@@ -1,7 +1,7 @@
 package com.binjar.sample.data.repositories.movie
 
 
-import com.binjar.sample.data.repositories.Listing
+import com.binjar.sample.data.Listing
 import com.binjar.sample.data.repositories.movie.model.Movie
 import io.reactivex.disposables.CompositeDisposable
 

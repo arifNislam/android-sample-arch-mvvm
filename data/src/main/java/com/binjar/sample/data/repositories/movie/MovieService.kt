@@ -16,4 +16,9 @@ interface MovieService {
             @Query("primary_release_date.lte") date: String,
             @Query("page") page: Int
     ): Flowable<Response<MovieResponse>>
+
+    @GET("movie/upcoming?api_key=$API_KEY")
+    fun fetchUpcomingMovies(
+            @Query("page") page: Int
+    ): Flowable<Response<MovieResponse>>
 }

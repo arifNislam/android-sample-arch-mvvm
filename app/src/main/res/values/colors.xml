@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_color_primary">#263238</color>
+    <color name="app_color_on_primary">#cfd8dc</color>
+    <color name="app_color_primary_dark">@color/app_color_primary</color>
+    <color name="app_color_on_primary_dark">@color/app_color_on_primary</color>
+    <color name="app_color_secondary">@color/app_color_primary</color>
+    <color name="app_color_on_secondary">@color/app_color_on_primary</color>
+    <color name="app_color_background">#cfd8dc</color>
+    <color name="app_color_on_background">#263238</color>
+</resources>

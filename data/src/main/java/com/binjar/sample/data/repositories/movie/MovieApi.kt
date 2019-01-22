@@ -15,6 +15,10 @@ class MovieApi private constructor() {
         return service.discover(queryUntil, page).onResponse()
     }
 
+    fun fetchUpcomingMovies(page: Int): Flowable<MovieResponse> {
+        return service.fetchUpcomingMovies(page).onResponse()
+    }
+
     companion object {
         @Volatile
         private var instance: MovieApi? = null
