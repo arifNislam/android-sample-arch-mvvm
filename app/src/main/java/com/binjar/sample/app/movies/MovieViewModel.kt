@@ -6,17 +6,17 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.binjar.sample.app.core.AppViewModel
-import com.binjar.sample.data.movie.MovieRepository
+import com.binjar.sample.data.movie.MovieDataSource
 import io.reactivex.disposables.CompositeDisposable
 
 
-class MovieViewModel private constructor(private val repository: MovieRepository) : AppViewModel() {
+class MovieViewModel private constructor(private val dataSource: MovieDataSource) : AppViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     private val queryUntil = MutableLiveData<String>()
 
     private val movieResult = Transformations.map(queryUntil) { query ->
-        repository.discoverMovies(query, compositeDisposable)
+        dataSource.discoverMovies(query, compositeDisposable)
     }
 
     var discoveredMovies = Transformations.switchMap(movieResult) { it.pagedList }
@@ -39,7 +39,7 @@ class MovieViewModel private constructor(private val repository: MovieRepository
         super.onCleared()
     }
 
-    class Factory(private var dataSource: MovieRepository) : ViewModelProvider.NewInstanceFactory() {
+    class Factory(private var dataSource: MovieDataSource) : ViewModelProvider.NewInstanceFactory() {
 
         @NonNull
         override fun <T : ViewModel> create(@NonNull modelClass: Class<T>): T {

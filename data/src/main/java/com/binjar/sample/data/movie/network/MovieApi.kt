@@ -1,4 +1,4 @@
-package com.binjar.sample.data.movie
+package com.binjar.sample.data.movie.network
 
 import android.app.Application
 import com.binjar.sample.data.ApiClient
@@ -7,7 +7,7 @@ import com.binjar.sample.data.movie.model.MovieResponse
 import io.reactivex.Flowable
 
 
-class MovieApi private constructor() {
+class MovieApi private constructor() : MovieNetworkSource {
 
     private lateinit var service: MovieService
 

@@ -1,4 +1,4 @@
-package com.binjar.sample.data.movie
+package com.binjar.sample.data.movie.network
 
 import com.binjar.sample.data.BuildConfig
 import com.binjar.sample.data.movie.model.MovieResponse
