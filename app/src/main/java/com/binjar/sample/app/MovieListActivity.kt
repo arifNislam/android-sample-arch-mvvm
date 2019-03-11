@@ -15,7 +15,7 @@ import com.binjar.sample.app.core.BaseActivity
 import com.binjar.sample.app.movies.MovieAdapter
 import com.binjar.sample.app.movies.MovieViewModel
 import com.binjar.sample.data.Injector
-import com.binjar.sample.data.repositories.movie.model.Movie
+import com.binjar.sample.data.movie.model.Movie
 import kotlinx.android.synthetic.main.activity_movie_list.*
 import java.text.SimpleDateFormat
 import java.util.*

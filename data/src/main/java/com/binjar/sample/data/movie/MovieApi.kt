@@ -1,9 +1,9 @@
-package com.binjar.sample.data.repositories.movie
+package com.binjar.sample.data.movie
 
 import android.app.Application
 import com.binjar.sample.data.ApiClient
 import com.binjar.sample.data.onResponse
-import com.binjar.sample.data.repositories.movie.model.MovieResponse
+import com.binjar.sample.data.movie.model.MovieResponse
 import io.reactivex.Flowable
 
 

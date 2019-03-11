@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binjar.sample.app.NetworkStateItemViewHolder
 import com.binjar.sample.app.R
 import com.binjar.sample.data.NetworkState
-import com.binjar.sample.data.repositories.movie.model.Movie
+import com.binjar.sample.data.movie.model.Movie
 
 
 class MovieAdapter(val retryCallback: () -> Unit, val itemCallback: (Int, Movie) -> Unit) : PagedListAdapter<Movie, RecyclerView.ViewHolder>(COMPARATOR) {

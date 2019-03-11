@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.binjar.sample.app.core.AppViewModel
-import com.binjar.sample.data.repositories.movie.MovieRepository
+import com.binjar.sample.data.movie.MovieRepository
 import io.reactivex.disposables.CompositeDisposable
 
 

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.binjar.sample.app.R
-import com.binjar.sample.data.repositories.movie.model.Movie
+import com.binjar.sample.data.movie.model.Movie
 
 class MovieItemViewHolder(itemView: View, callback: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
     private val itemLayout: View = itemView.findViewById<View>(R.id.itemLayout)

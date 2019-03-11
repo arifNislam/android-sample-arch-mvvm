@@ -1,7 +1,7 @@
-package com.binjar.sample.data.repositories.movie
+package com.binjar.sample.data.movie
 
 import com.binjar.sample.data.BuildConfig
-import com.binjar.sample.data.repositories.movie.model.MovieResponse
+import com.binjar.sample.data.movie.model.MovieResponse
 import io.reactivex.Flowable
 import retrofit2.Response
 import retrofit2.http.GET

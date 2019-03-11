@@ -1,11 +1,11 @@
-package com.binjar.sample.data.repositories.movie
+package com.binjar.sample.data.movie
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.binjar.sample.data.NetworkState
-import com.binjar.sample.data.repositories.movie.model.Movie
-import com.binjar.sample.data.repositories.movie.model.MovieResponse
+import com.binjar.sample.data.movie.model.Movie
+import com.binjar.sample.data.movie.model.MovieResponse
 import io.reactivex.disposables.CompositeDisposable
 
 

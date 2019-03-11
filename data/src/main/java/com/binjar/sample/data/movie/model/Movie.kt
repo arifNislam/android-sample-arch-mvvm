@@ -1,4 +1,4 @@
-package com.binjar.sample.data.repositories.movie.model
+package com.binjar.sample.data.movie.model
 
 import com.google.gson.annotations.SerializedName
 
