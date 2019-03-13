@@ -1,7 +1,8 @@
-package com.binjar.sample.data
+package com.binjar.sample.data.movie.paging
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
+import com.binjar.sample.data.NetworkState
 
 
 /**
