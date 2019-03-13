@@ -6,14 +6,13 @@ import androidx.paging.PageKeyedDataSource
 import com.binjar.sample.data.NetworkState
 import com.binjar.sample.data.movie.model.Movie
 import com.binjar.sample.data.movie.model.MovieResponse
-import com.binjar.sample.data.movie.network.MovieApi
 import io.reactivex.disposables.CompositeDisposable
 
 
 class MoviePagedSource private constructor(
-        private val queryUntil: String,
-        private val movieApi: MovieApi,
-        private val compositeDisposable: CompositeDisposable
+        private val compositeDisposable: CompositeDisposable,
+        private val movieDataSource: MovieDataSource,
+        private val queryUntil: String
 ) : PageKeyedDataSource<Int, Movie>() {
 
     val networkState = MutableLiveData<NetworkState>()
@@ -29,7 +28,7 @@ class MoviePagedSource private constructor(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
         networkState.postValue(NetworkState.LOADING)
-        val disposable = movieApi.discoverMovies(queryUntil, params.key)
+        val disposable = movieDataSource.discoverMovies(queryUntil, params.key)
                 .subscribe({ movieResponse: MovieResponse? ->
                     val movies = movieResponse?.movies ?: emptyList<Movie>()
                     callback.onResult(movies, params.key + 1)
@@ -44,7 +43,7 @@ class MoviePagedSource private constructor(
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
 
-        val disposable = movieApi.discoverMovies(queryUntil, 1)
+        val disposable = movieDataSource.discoverMovies(queryUntil, 1)
                 .subscribe(({ movieResponse: MovieResponse? ->
                     val movies = movieResponse?.movies ?: emptyList<Movie>()
                     networkState.postValue(NetworkState.LOADED)
@@ -59,15 +58,16 @@ class MoviePagedSource private constructor(
         compositeDisposable.add(disposable)
     }
 
-    class Factory(private val queryUntil: String,
-                  private val movieApi: MovieApi,
-                  private val compositeDisposable: CompositeDisposable
+    class Factory(
+            private val compositeDisposable: CompositeDisposable,
+            private val movieDataSource: MovieDataSource,
+            private val queryUntil: String
     ) : DataSource.Factory<Int, Movie>() {
 
         val movieDSLiveData = MutableLiveData<MoviePagedSource>()
 
         override fun create(): DataSource<Int, Movie> {
-            val source = MoviePagedSource(queryUntil, movieApi, compositeDisposable)
+            val source = MoviePagedSource(compositeDisposable, movieDataSource, queryUntil)
             movieDSLiveData.postValue(source)
             return source
         }
