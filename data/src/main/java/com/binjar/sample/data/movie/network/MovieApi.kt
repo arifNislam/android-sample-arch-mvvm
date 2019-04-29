@@ -2,8 +2,9 @@ package com.binjar.sample.data.movie.network
 
 import android.app.Application
 import com.binjar.sample.data.ApiClient
-import com.binjar.sample.data.onResponse
 import com.binjar.sample.data.movie.model.MovieResponse
+import com.binjar.sample.data.movie.model.SortBy
+import com.binjar.sample.data.onResponse
 import io.reactivex.Flowable
 
 
@@ -11,8 +12,11 @@ class MovieApi private constructor() : MovieNetworkSource {
 
     private lateinit var service: MovieService
 
-    fun discoverMovies(queryUntil: String, page: Int): Flowable<MovieResponse> {
-        return service.discover(queryUntil, page).onResponse()
+    override fun discoverMovies(page: Int, sortBy: SortBy): Flowable<MovieResponse> {
+        val queries = HashMap<String, String>()
+        queries["page"] = page.toString()
+        queries["sort_by"] = "${sortBy.value}.${sortBy.order}"
+        return service.discover(queries).onResponse()
     }
 
     fun fetchUpcomingMovies(page: Int): Flowable<MovieResponse> {

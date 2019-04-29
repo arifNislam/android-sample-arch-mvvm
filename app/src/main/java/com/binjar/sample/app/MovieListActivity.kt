@@ -16,16 +16,13 @@ import com.binjar.sample.app.movies.MovieAdapter
 import com.binjar.sample.app.movies.MovieViewModel
 import com.binjar.sample.data.Injector
 import com.binjar.sample.data.movie.model.Movie
+import com.binjar.sample.data.movie.model.sortOptions
 import kotlinx.android.synthetic.main.activity_movie_list.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MovieListActivity : BaseActivity() {
 
     lateinit var movieAdapter: MovieAdapter
     lateinit var layoutManager: RecyclerView.LayoutManager
-
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
     private val viewModel: MovieViewModel by lazy {
         ViewModelProviders.of(this,
@@ -57,7 +54,7 @@ class MovieListActivity : BaseActivity() {
             movieAdapter.submitList(movies)
         })
 
-        viewModel.discover(dateFormat.format(Date()))
+        viewModel.discover(sortOptions[0])
 
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

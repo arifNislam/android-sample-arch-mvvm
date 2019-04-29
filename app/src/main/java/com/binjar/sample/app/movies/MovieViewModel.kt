@@ -11,6 +11,7 @@ import com.binjar.sample.app.core.AppViewModel
 import com.binjar.sample.data.movie.MovieDataSource
 import com.binjar.sample.data.movie.MoviePagedSource
 import com.binjar.sample.data.movie.model.Movie
+import com.binjar.sample.data.movie.model.SortBy
 import com.binjar.sample.data.movie.paging.Listing
 import io.reactivex.disposables.CompositeDisposable
 
@@ -18,12 +19,9 @@ import io.reactivex.disposables.CompositeDisposable
 class MovieViewModel private constructor(private val dataSource: MovieDataSource) : AppViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
-    private val queryUntil = MutableLiveData<String>()
+    private val movieQuery = MutableLiveData<Pair<String, SortBy>>()
 
-    private val movieResult = Transformations.map(queryUntil) { query ->
-        // dataSource.discoverMovies(query, compositeDisposable)
-        loadMovies(query)
-    }
+    private val movieResult = Transformations.map(movieQuery) { query -> loadMovies(query.second) }
 
     val discoveredMovies = Transformations.switchMap(movieResult) { it.pagedList }
     val networkState = Transformations.switchMap(movieResult) { it.networkState }
@@ -32,16 +30,16 @@ class MovieViewModel private constructor(private val dataSource: MovieDataSource
         compositeDisposable.clear()
     }
 
-    fun discover(date: String): Boolean {
-        if (date == queryUntil.value) {
+    fun discover(sortBy: SortBy): Boolean {
+        if (sortBy == movieQuery.value?.second) {
             return false
         }
-        queryUntil.value = date
+        movieQuery.value = Pair("", sortBy)
         return true
     }
 
-    private fun loadMovies(query: String): Listing<Movie> {
-        val pagedSourceFactory = MoviePagedSource.Factory(compositeDisposable, dataSource, query)
+    private fun loadMovies(sortBy: SortBy): Listing<Movie> {
+        val pagedSourceFactory = MoviePagedSource.Factory(compositeDisposable, dataSource, sortBy)
         val pagedConfig = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(20)

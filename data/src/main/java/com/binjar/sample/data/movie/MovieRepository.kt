@@ -2,6 +2,7 @@ package com.binjar.sample.data.movie
 
 import android.app.Application
 import com.binjar.sample.data.movie.model.MovieResponse
+import com.binjar.sample.data.movie.model.SortBy
 import com.binjar.sample.data.movie.network.MovieApi
 import com.binjar.sample.data.onException
 import io.reactivex.Flowable
@@ -12,9 +13,8 @@ class MovieRepository private constructor(
         private val api: MovieApi
 ) : MovieDataSource {
 
-    override fun discoverMovies(until: String, page: Int): Flowable<MovieResponse> {
-        return api.discoverMovies(until, page).onException(app)
-                .map { movieResponse -> return@map movieResponse }
+    override fun discoverMovies(page: Int, sortBy: SortBy): Flowable<MovieResponse> {
+        return api.discoverMovies(page, sortBy).onException(app)
     }
 
     companion object {
